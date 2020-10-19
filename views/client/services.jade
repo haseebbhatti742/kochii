@@ -1,0 +1,14 @@
+if session.username == null
+  include header1
+else
+  include header2                            
+include servicesSlider
+include gallery
+include footer
+
+include scripts
+script.
+  function goToLogin(){
+    window.location.replace("/login-form")
+  }
+script(src="/js/services.js")

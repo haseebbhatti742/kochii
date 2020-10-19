@@ -1,0 +1,67 @@
+include header2
+br
+br
+br
+br
+br
+br         
+br
+.container
+    .row
+        if appointments.length == 0
+            h2 No Items in Cart
+        else
+            .table-responsive-sm
+                table.table.table-striped(style = "text-align: center")
+                    thead          
+                        tr
+                            th.align-middle(scope='col') Cart Number
+                            |             
+                            th.align-middle(scope='col') Client Name
+                            |             
+                            th.align-middle(scope='col') Date
+                            |             
+                            th.align-middle(scope='col') Time
+                            |             
+                            th.align-middle(scope='col') Status
+                            |             
+                            th.align-middle(scope='col') Employee
+                            |             
+                            th.align-middle(scope='col') Action
+                            |         
+                    tbody
+                        - for(var i = 0; i < appointments.length; i++) {
+                            tr
+                                td.align-middle #{i+1}
+                                td
+                                    nav.main_nav
+                                    ul.d-flex.flex-row.align-items-start.justify-content-start
+                                        li.dropdown
+                                            ol
+                                                - for(var j = 0; j< appointments[i].appointment_services.length; j++){
+                                                    li #{appointments[i].appointment_services[j].service_name}
+                                                -}
+                                td.align-middle #{appointments[i].appointments.appointment_date}
+                                td.align-middle Accept to assign time
+                                td.align-middle #{appointments[i].appointments.appointment_status}
+                                td.align-middle
+                                    - if(appointments[i].appointments.appointment_status == "accepted"){
+                                        | #{appointments[i].appointments.employee_name}
+                                    - } else if(appointments[i].appointments.appointment_status == "pending"){
+                                        | Accept to assign employee
+                                    - }
+
+                                td.align-middle
+                                    - if(appointments[i].appointments.appointment_status == "pending"){
+                                        | 
+                                        a.btn.btn-warning.col-12(href="/receptionist/approveAppointments/#{appointments[i].appointments.appointment_id}" style="color:black") Accept
+                                        a.btn.btn-warning.col-12.mt-2(href="/receptionist/appointments/reject/#{appointments[i].appointments.appointment_id}" style="color:black") Reject
+                                    - } else if (appointments[i].appointments.appointment_status == "accepted"){
+                                        | 
+                                        a.btn.btn-warning.col-12(href="/receptionist/appointments/cancel/#{appointments[i].appointments.appointment_id}" style="color:black") Cancel
+                                    - } else if (appointments[i].appointments.appointment_status == "cancelled" || appointments[i].appointments.appointment_status == "rejected"){
+                                        | 
+                                        a.btn.btn-warning.col-12(href="/receptionist/appointments/delete/#{appointments[i].appointments.appointment_id}" style="color:black") Delete
+                                    - }
+                        -}
+include scripts

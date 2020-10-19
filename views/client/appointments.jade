@@ -1,0 +1,54 @@
+if session.username==null
+  include header1
+else 
+  include header2
+br
+br
+br
+br
+br
+br         
+br
+.container
+  .row
+            .table-responsive-sm
+              table.table.table-striped(style = "text-align: center")
+                thead          
+                  tr
+                    th.align-middle(scope='col') Appointment Number
+                    |             
+                    th.align-middle(scope='col') Services
+                    |             
+                    th.align-middle(scope='col') Date
+                    |             
+                    th.align-middle(scope='col') Time
+                    |             
+                    th.align-middle(scope='col') Status
+                    |             
+                    th.align-middle(scope='col') Action
+                    |         
+                tbody
+                  - for(var i = 0; i < appointments.length; i++) {
+                      tr
+                        td.align-middle #{i+1}
+                        td
+                          nav.main_nav
+                          ul.d-flex.flex-row.align-items-start.justify-content-start
+                            li.dropdown
+                              ol
+                                - for(var j = 0; j< appointments[i].appointment_services.length; j++){
+                                    li #{appointments[i].appointment_services[j].service_name}
+                                -}
+                        td.align-middle #{appointments[i].appointments.appointment_date}
+                        td.align-middle #{appointments[i].appointments.appointment_time}
+                        td.align-middle #{appointments[i].appointments.appointment_status}
+                        td.align-middle 
+                          - if(appointments[i].appointments.appointment_status == "pending" || appointments[i].appointments.appointment_status == "accepted"){
+                              | 
+                              a.btn.btn-warning(href="/appointments/cancel/#{appointments[i].appointments.appointment_id}" style="color:black") Cancel
+                          - } else if(appointments[i].appointments.appointment_status == "cancelled" || appointments[i].appointments.appointment_status == "rejected"){
+                              | 
+                              a.btn.btn-warning(href="/appointments/delete/#{appointments[i].appointments.appointment_id}" style="color:black") Delete
+                          - }
+                  -}
+include scripts

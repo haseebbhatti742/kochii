@@ -1,0 +1,97 @@
+footer.footer
+        .parallax_background(data-image-src='/images/footer.jpg')
+        // <div class="parallax_background parallax-window" data-parallax="scroll" data-image-src="images/footer.jpg" data-speed="0.8"></div>
+        .footer_container
+          .container
+            .row
+              .col
+                .section_title_container
+                  .section_title
+                    h1 Get in touch
+                  |                                 
+                  p Maximus mauris sceleri sque, at rutrum nulla dictum.
+            |                     
+            .row.footer_row
+              .col-lg-4.footer_col
+                .contact_info
+                  .footer_title Contact Info
+                  |                                 
+                  .contact_info_list
+                    ul
+                      li.d-flex.flex-row.align-items-start.justify-content-start
+                        div
+                          .contact_info_icon
+                            img(src='/images/placeholder.svg', alt='https://www.flaticon.com/authors/freepik')
+                        |                                             
+                        .contact_info_content
+                          | 4127 Raoul Wallenber4127 Raoul Wallen berg Place
+                      |                                         
+                      li.d-flex.flex-row.align-items-center.justify-content-start
+                        div
+                          .contact_info_icon
+                            img(src='/images/phone-call.svg', alt='https://www.flaticon.com/authors/freepik')
+                        |                                             
+                        .contact_info_content 203-808-8613
+                      |                                         
+                      li.d-flex.flex-row.align-items-center.justify-content-start
+                        div
+                          .contact_info_icon
+                            img(src='/images/message.svg', alt='https://www.flaticon.com/authors/freepik')
+                        |                                             
+                        .contact_info_content
+                          | milothemes@gmail.com
+                  |                                 
+                  .social
+                    ul.d-flex.flex-row.align-items-center.justify-content-start
+                      li
+                        a(href='#')
+                          i.fa.fa-pinterest(aria-hidden='true')
+                      |                                         
+                      li
+                        a(href='#')
+                          i.fa.fa-facebook(aria-hidden='true')
+                      |                                         
+                      li
+                        a(href='#')
+                          i.fa.fa-twitter(aria-hidden='true')
+                      |                                         
+                      li
+                        a(href='#')
+                          i.fa.fa-dribbble(aria-hidden='true')
+                      |                                         
+                      li
+                        a(href='#')
+                          i.fa.fa-behance(aria-hidden='true')
+                      |                                         
+                      li
+                        a(href='#')
+                          i.fa.fa-linkedin(aria-hidden='true')
+              |                         
+              .col-lg-8
+                .footer_title Leave a comment
+                |                             
+                .contact_form_container
+                  form#contact_form.contact_form(action='#')
+                    div
+                      .row
+                        .col-lg-6
+                          input.contact_input(type='text', placeholder='Name', required='required')
+                        |                                             
+                        .col-lg-6
+                          input.contact_input(type='email', placeholder='E-mail', required='required')
+                    |                                     
+                    div
+                      input.contact_input(type='text', placeholder='Subject')
+                    |                                     
+                    div
+                      textarea.contact_input.contact_textarea(placeholder='Message', required='required')
+                    |                                     
+                    button.contact_form_button send message
+        |             
+        .footer_bar.d-flex.flex-row.align-items-center.justify-content-start
+          .copyright
+            // Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0.
+            | Copyright &copy;
+            script.
+              document.write(new Date().getFullYear());
+            | All rights reserved | Saloon & Spa Management System

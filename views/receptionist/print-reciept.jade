@@ -1,0 +1,150 @@
+br
+br
+br
+br
+br
+br
+br
+br
+#printDiv.container(hidden)
+    .row
+        .col-md-12
+            .table-responsive-sm
+                table.table.table-striped(style = "text-align: center")
+                    thead
+                        tr
+                            th.align-middle(colspan = 4, style = "color:black; background-color:orange") 
+                                img(src='/images/logo2.png' width=50 height=50)
+                                | Saloon & Spa
+                    tbody
+                        tr
+                            tr
+                                th Bill No: 
+                                td#bill_number
+                                th Client: 
+                                td #{username}
+                            tr
+                                th Employee: 
+                                td #{session.username}
+                                th Date: 
+                                td 
+                                    script.
+                                        document.write(new Date().getDate()+"-"+(new Date().getMonth()+1)+"-"+new Date().getFullYear());
+
+    br
+    br
+    .row
+        .col-md-12
+            p(style = "color:white; background-color:black") ********************************************************************************************************************************************************************************************
+            br
+            br
+    .row
+        .col-md-12
+            .table-responsive-sm
+                table.table.table-striped(style = "text-align: center")
+                    thead
+                        tr
+                            th(colspan = 6, style = "color:black; background-color:orange") Products
+                        tr
+                            th.align-middle(scope='col') Product Number
+                            |             
+                            th.align-middle(scope='col' colspan=2) Product Name
+                            |             
+                            th.align-middle(scope='col') Product Price
+                            | 
+                            th.align-middle(scope='col') Quantity
+                            |         
+                            th.align-middle(scope='col') Total
+                            |         
+                    tbody
+                        -if(cart.length==0){
+                            tr
+                                td.align-middle(colspan=6) No Items in Cart
+                        -}
+                        -else{
+                            -for(var i = 0; i < cart.length; i++) {
+                                tr
+                                    td.align-middle #{i+1}
+                                    td.align-middle(colspan=2) #{cart[i].cart_item.product_name}
+                                    td.align-middle #{cart[i].cart_item.product_price}
+                                    td.align-middle #{cart[i].cart_item.quantity}
+                                    td.align-middle #{cart[i].total}
+                            -}
+                        -}
+
+                        tr
+                            th.align-middle(colspan = 6, style = "color:black; background-color:orange") Appointments          
+                        tr
+                            th.align-middle(scope='col') Appointment Number
+                            |             
+                            th.align-middle(scope='col') Services
+                            |             
+                            th.align-middle(scope='col') Date
+                            |             
+                            th.align-middle(scope='col') Time
+                            |             
+                            th.align-middle(scope='col') Status
+                            |             
+                            th.align-middle(scope='col') Total
+                        -if(appointments.length == 0){
+                            tr
+                                td.align-middle(colspan = 6) No Appointments
+                        -}
+                        -else{
+                            - for(var i = 0; i < appointments.length; i++) {
+                                tr
+                                    td.align-middle #{i+1}
+                                    td
+                                        nav.main_nav
+                                        ul.d-flex.flex-row.align-items-start.justify-content-start
+                                            li.dropdown
+                                                ol
+                                                    - for(var j = 0; j< appointments[i].appointment_services.length; j++){
+                                                        li #{appointments[i].appointment_services[j].service_name}
+                                                    -}
+                                    td.align-middle #{appointments[i].appointments.appointment_date}
+                                    td.align-middle #{appointments[i].appointments.appointment_time}
+                                    td.align-middle #{appointments[i].appointments.appointment_status}
+                                    td.align-middle #{appointments[i].appointment_total}
+                            -}
+                        -}
+        //total cart
+    .row
+        #textarea.col-md-6
+            textarea.align-middle.text-center.col-md-12(rows = 7, style = "vertical-align: middle; horizontal-align: middle") &#10;&#10;&#10; If you have any query about this reciept please contact here: &#10; Email: haseebbhatti742@gmail.com &#10; Phone: +923062244907 
+            .table-responsive-sm
+                table.table.table-striped
+                    thead
+                        tr
+                            th.align-left(style = "color:black; background-color:orange") Thanks For Your Visit!
+        #totalarea.col-md-6
+            .card.mb-4.mr-4
+                .card-body
+                    table.table
+                        tbody
+                            tr
+                                th(scope='col') Cart Total
+                                |                                     
+                                th(scope='col')
+                                |                                     
+                                th(scope='col') #{cart.cart_total}$
+                            tr
+                                th(scope='col') Appointments Total
+                                |                                 
+                                th(scope='col')
+                                |                                 
+                                th(scope='col') #{appointments.appointments_total}$
+                            tr
+                                th(scope='col') Grand Total
+                                |                                 
+                                th(scope='col')
+                                |                                 
+                                -if(cart.length == 0){
+                                    th(scope='col') #{0+appointments.appointments_total}$
+                                -}
+                                -else if(appointments.length == 0){
+                                    th(scope='col') #{cart.cart_total+0}$
+                                -}
+                                -else{
+                                    th(scope='col') #{cart.cart_total+appointments.appointments_total}$
+                                -}

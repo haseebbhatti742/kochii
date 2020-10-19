@@ -1,0 +1,57 @@
+include header2
+br
+br
+br
+br
+br
+// Form
+.home.conatiner
+    #app_form.app_form.container
+        .col-1
+        |          
+        .col-6
+          #updateError.alert.alert-danger.alert-dismissible(hidden='true')
+            button.close(type='button', data-dismiss='alert') &times;
+              |   
+            strong Error!
+              |   
+              p#msg
+        .row
+          .col-1
+          |          
+          .col-5
+            input#product_id(hidden="true" value="#{product_data.product_id}")             
+            input#product_name.app_input(type='text', placeholder='Product Name', required='required' value="#{product_data.product_name}")
+            input#product_price.app_input(type='text', placeholder='Product Price', required='required' value="#{product_data.product_price}" onkeypress="checkPrice(event)")
+            span#priceError
+            input#product_quantity.app_input(type='text', placeholder='Product Quantity', required='required' value="#{product_data.product_quantity}" onkeypress="checkQuantity(event)")
+            span#quantityError
+            input#product_minQuantity.app_input(type='text', placeholder='Minumum Quantity', required='required' value="#{product_data.product_minQuantity}" onkeyup="checkMinQuantity(event)")
+            span#minQuantityError
+            select#product_status.app_input.app_select
+              option(disabled='', selected='') Select Status
+              |     
+              option(value="available") Available
+              |     
+              option(value="not available") Not Available
+            |         
+            textarea#product_desc.contact_input.contact_textarea(placeholder='Product Description', required='required', rows='3') #{product_data.product_desc}
+            |           
+            .col-4
+            |           
+            .text-left.row
+              button.app_form_button(onclick='reg()')
+                | cancel
+              |             
+              .col-5
+              |             
+              |             
+              button.app_form_button.text-center(onclick='updateProduct()') Save Changes
+          //- |         
+          //- .col-5
+          //-   .form-group
+          //-     input#file-input(type='file', multiple='')
+          //-     |                 
+          //-     #thumb-output
+include scripts
+script(src="/js/addProduct.js")

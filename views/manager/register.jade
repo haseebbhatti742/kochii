@@ -1,0 +1,45 @@
+include header1
+br
+br
+br
+br
+br
+.home
+    #main.container
+          form#app_form.app_form.container
+            input.app_input(type='text', placeholder='Full Name', required='required')
+            |         
+            input.app_input(type='email', placeholder='Email Address', required='required')
+            |         
+            input.app_input(type='text', placeholder='Phone Number', required='required')
+            |         
+            input.app_input(type='text', placeholder='Desired Date', required='required')
+            |         
+            select.app_input.app_select
+              option(disabled='', selected='') Select Stylist
+              |           
+              option Stylist 1
+              |           
+              option Stylist 2
+              |           
+              option Stylist 3
+              |           
+              option Stylist 4
+            select.app_input.app_select
+              option(disabled='', selected='') Select Service
+              |           
+              option Service 1
+              |           
+              option Service 2
+              |           
+              option Service 3
+              |           
+              option Service 4
+            |         
+            .text-left
+              | Already a Member? Click here to 
+              a(href='/manager/login-form') Login
+            |         
+            .text-right         
+              button#register.app_form_button.text-center submit
+include scripts

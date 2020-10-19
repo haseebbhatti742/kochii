@@ -1,0 +1,38 @@
+include header2
+br
+br
+br
+br
+br
+// Form
+.home.conatiner
+    #Error.alert.alert-danger.alert-dismissible(hidden='true')
+          button.close(type='button', data-dismiss='alert') &times;
+            |   
+          strong Error!
+            |   Appointment was not approved
+    #app_form.app_form.container
+        .row
+            .col-3
+            |          
+            .col-5             
+                input#appointment_id.app_input(type='text', value='#{appointments[0].appointments.appointment_id}', disabled, hidden)
+                |         
+                input#user_id.app_input(type='text', value='#{appointments[0].appointments.user_id}', disabled)
+                |         
+                input#appointment_date.app_input(type='date', value='#{date}')
+                |         
+                input#appointment_time.app_input(type='time')
+                |         
+                select#employees.app_input.app_select(onchange="selectEmployee()")
+                    option(disabled='', selected='') Select Employee
+                |           
+                .row
+                    button.app_form_button(onclick='cancel()')
+                        | cancel
+                    |             
+                    .col-4
+                    button.app_form_button.text-center(onclick='approveAppointments()') Approve Appointment
+
+include scripts
+script(src="/js/approveAppointments.js")

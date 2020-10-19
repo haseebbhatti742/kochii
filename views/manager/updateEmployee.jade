@@ -1,0 +1,42 @@
+include header2
+br
+br
+br
+br
+br
+.home.conatiner
+    #app_form.app_form.container
+        .row
+            //- .col-2
+            //- |               
+            //- .col-5
+            //-     img(src='./images/Products/product1.jpg', alt='')
+            //- |               
+            .col-4
+                #app_form.app_form.container
+                    input#employee_id(hidden="true" value= "#{employee_data.employee_id}")
+                    input#employee_name.app_input(type='text', placeholder='Name', required='required' value="#{employee_data.employee_name}")
+                    input#employee_dob.app_input(type='date', placeholder='Birth Date', required='required' value="#{employee_data.employee_dob}")
+                    input#employee_address.app_input(type='text', placeholder='Address', required='required' value="#{employee_data.employee_address}")
+                    input#employee_contact.app_input(type='text', placeholder='Contact Number', required='required' value="#{employee_data.employee_contact}")
+                    input#employee_cnic.app_input(type='text', placeholder='CNIC', required='required' value="#{employee_data.employee_cnic}")
+                    select#employee_role.selectpicker.app_input.app_select(name='role' onchange='roleFunction()')
+                        option(disabled='', selected='') Select Role        
+                        option(value='stylist') Stylist
+                        option(value='receptionist') Receptionist
+                    input#employee_username.app_input(type='text', onkeyup='checkUsername()', onkeydown='checkUsername()' placeholder='Username', hidden='true')
+                    p#unError
+                    input#employee_password.app_input(type='password', placeholder='Password', hidden='true')
+                    |           
+                    .col-5
+                    |           
+                    .text-left.row
+                        button.app_form_button(onclick='reg()')
+                            | cancel
+                        |             
+                        .col-5
+                        |   
+                        |             
+                        button#addBtn.app_form_button.text-center(onclick='updateEmployee()') Save Changes
+include scripts
+script(src="/js/addEmployee.js")

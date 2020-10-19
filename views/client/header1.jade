@@ -1,0 +1,131 @@
+doctype html(lang='en')
+head
+  title Saloon &amp; Spa | #{title}
+  |     
+  meta(charset='utf-8')
+  |     
+  meta(http-equiv='X-UA-Compatible' content='IE=edge')
+  |     
+  meta(name='description' content='Vogue template project')
+  |     
+  meta(name='viewport' content='width=device-width, initial-scale=1')
+  |     
+  link(rel='icon' href='/images/logo/logo2.png')
+  |     
+  link(rel='stylesheet' type='text/css' href='/styles/bootstrap-4.1.2/bootstrap.min.css')
+  |     
+  link(rel='stylesheet' type='text/css' href='/plugins/font-awesome-4.7.0/css/font-awesome.min.css')
+  |     
+  link(rel='stylesheet' type='text/css' href='/plugins/OwlCarousel2-2.2.1/owl.carousel.css')
+  |     
+  link(rel='stylesheet' type='text/css' href='/plugins/OwlCarousel2-2.2.1/owl.theme.default.css')
+  |     
+  link(rel='stylesheet' type='text/css' href='/plugins/OwlCarousel2-2.2.1/animate.css')
+  |     
+  link(rel='stylesheet' type='text/css' href='/styles/main_styles.css')
+  |     
+  link(rel='stylesheet' type='text/css' href='/styles/responsive.css')
+  link(rel="stylesheet" type="text/css" href="/styles/contact.css")
+  link(rel="stylesheet" type="text/css" href="/styles/contact_responsive.css")
+  link(rel="stylesheet" type="text/css" href="/styles/services.css")
+  link(rel="stylesheet" type="text/css" href="/styles/services_responsive.css")
+  script(src="https://kit.fontawesome.com/417f637d9d.js" crossorigin="anonymous")
+body
+  .super_container
+    // Header
+    header.header.trans_400
+      .header_content.d-flex.flex-row.align-items-center.justify-content-center.trans_400
+        // Logo
+        .logo
+          a(href='/')
+            div
+              | Saloon
+              span
+                img(src='/images/logo2.png' style='width:40px')
+              | Spa
+            |                         
+            div Stylist
+          |                     
+          .hamburger
+            div
+            |                         
+            div
+            |                         
+            div
+        // Main Navigation
+        nav.main_nav
+          ul.d-flex.flex-row.align-items-start.justify-content-start
+            li
+              .row
+                span.fas.fa-home(style="font-size:24px;color:orange")
+                a(href='/') Home
+                  div
+                  div
+                  div
+                  div
+            li
+              .row
+                span.fa.fa-th-large(style="font-size:24px;color:orange")
+                a(href='/services') Services
+                  div
+                  div
+                  div
+                  div
+            li
+              .row
+                span.fa.fa-product-hunt(style="font-size:24px;color:orange")
+                a(href='/products') Products
+                  div
+                  div
+                  div
+                  div
+            li
+              .row
+                span.fas.fa-phone(style="font-size:24px;color:orange")
+                a(href='/contact') Contact
+                  div
+                  div
+                  div
+                  div
+            li
+              .row
+                span.far.fa-calendar-check(style="font-size:24px;color:orange")
+                a(href='/addAppointment') Appointment
+                  div
+                  div
+                  div
+                  div
+            li
+              .row
+                span.fas.fa-sign-in-alt(style="font-size:24px;color:orange")
+                a(href='/login-form') Login
+                  div
+                  div
+                  div
+                  div
+            li
+              .row
+                span.fas.fa-user-plus(style="font-size:24px;color:orange")
+                a(href='/register-form') Register
+                  div
+                  div
+                  div
+                  div
+    // Menu
+    .menu
+      nav.menu_nav
+        ul.d-flex.flex-column.align-items-start.justify-content-start
+          li
+            a(href='/') Home
+          |                     
+          li
+            a(href='/services') Services
+          |                     
+          li
+            a(href='services.html') Contact
+          |                     
+          li
+            a(href='/login-form') Login
+          |                     
+          li
+            a(href='contact.html') Contact

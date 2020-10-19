@@ -1,0 +1,114 @@
+if session.username==null
+  include header1
+else 
+  include header2
+br
+br
+br
+br
+br
+br         
+.container
+      .container
+        .row
+          .col-1
+            button.app_form_button(onclick='addEmployee()')
+              i.fas.fa-plus-circle
+              |  Add Emplopyee
+          |              
+          .col-2
+          |              
+          .col-7
+            form#app_form.app_form
+              .row
+                .col-4
+                  input.app_input.mt-4(type='text', placeholder='Search Employee')
+                |                      
+                .col-2
+                  button.app_form_button
+                    i.fas.fa-search
+                    |  Search
+          |                
+          |                
+          .col-2
+            form#app_form.app_form.mt-4
+              select.app_input.app_select
+                option(disabled='', selected='')  Filter Employee
+                |                      
+                option Product 1
+                |                      
+                option Product 2
+                |                      
+                option Product 3
+                |                      
+                option Product 4
+      |  
+      br
+      |     
+      br
+      br
+      br
+      // Table of Employees
+      if length==0 
+        h1 No Employee found!
+      else
+        .row
+          .table-responsive-sm
+            table.table.table-striped
+              thead          
+                tr
+                  th.align-middle(scope='col') Employee ID
+                  |             
+                  th.align-middle(scope='col') Picture
+                  |             
+                  th.align-middle(scope='col') Name
+                  |             
+                  th.align-middle(scope='col') Date of Birth
+                  |             
+                  th.align-middle(scope='col') CNIC
+                  |             
+                  th.align-middle(scope='col' style="width: 10%") Address
+                  |             
+                  th.align-middle(scope='col') Contact Number
+                  |             
+                  th.text-center.align-middle(scope='col') Actions
+              |         
+              tbody
+                each i in employeeData
+                  tr
+                    th.align-middle(scope='row') #{i.employee_id}
+                    |             
+                    td
+                      img.mt-3(src='/images/article_1.jpg', alt='Image', width='100px', height='100px' style='border-radius:15px')
+                    td.align-middle #{i.employee_name}
+                    td.align-middle #{i.employee_dob}
+                    td.align-middle #{i.employee_cnic}
+                    td.align-middle #{i.employee_address}
+                    td.align-middle #{i.employee_contact}             
+                    td
+                      nav.main_nav
+                       ul.d-flex.flex-row.align-items-start.justify-content-start
+                        li.dropdown
+                          a.dropdown-toggle(href="#" id="navbardrop" data-toggle="dropdown" style="z-index: 1") Action
+                            div
+                            
+                          .dropdown-menu
+                            a.dropdown-item(href='/manager/updateEmployee/#{i.employee_id}' style='color:orange') Update
+                            a.dropdown-item(href='/manager/appointments/completed' style='color:orange') View Transactions
+                            a.dropdown-item(href='/manager/appointments/cancelled' style='color:orange') Commission Report
+                            a.dropdown-item(href='/manager/employees/del/#{i.employee_id}' style='color:orange') Delete
+                      //- .row
+                      //-   form(action="/manager/updateEmployee", method="POST")
+                      //-     input(type="hidden" name= "employee_id" value ="#{i.employee_id}" )
+                      //-     button.app_form_button.mr-2(type = "submit") Update
+                      //-   form(action="/manager/employees/del", method="POST")
+                      //-     input(type="hidden" name= "employee_id" value ="#{i.employee_id}" )
+                      //-     button.app_form_button(type = "submit") View Transactions
+                      //- .row
+                      //-   form(action="/manager/employees/del", method="POST")
+                      //-     input(type="hidden" name= "employee_id" value ="#{i.employee_id}" )
+                      //-     button.app_form_button.mr-2(type = "submit") Commision Report
+                      //-   form(action="/manager/employees/del", method="POST")
+                      //-     input(type="hidden" name= "employee_id" value ="#{i.employee_id}" )
+                      //-     button.app_form_button(type = "submit") Delete
+include scripts

@@ -1,0 +1,155 @@
+include header2
+br
+br
+br
+br
+br
+br
+br
+br
+.container
+  .row
+    .col-md-8
+      .table-responsive-sm
+        table.table.table-striped(style = "text-align: center")
+          thead
+            tr
+              th(colspan = 6, style = "color:black; background-color:orange") Cart
+            tr
+              th.align-middle(scope='col') Cart Number
+              |             
+              th.align-middle(scope='col') Product
+              |             
+              th.align-middle(scope='col') Date
+              |             
+              th.align-middle(scope='col') Product Price
+              | 
+              th.align-middle(scope='col') Quantity
+              |         
+              th.align-middle(scope='col') Total
+              |         
+          tbody
+            -if(cart.length==0){
+              tr
+                td.align-middle(colspan=6) No Items in Cart
+            -}
+            -else{
+              -for(var i = 0; i < cart.length; i++) {
+                tr
+                  td.align-middle #{i+1}
+                  td.align-middle #{cart[i].cart_item.product_name}
+                  td.align-middle #{cart[i].cart_item.day}/#{cart[i].cart_item.month}/#{cart[i].cart_item.year}
+                  td.align-middle #{cart[i].cart_item.product_price}
+                  td.align-middle
+                    .row
+                      //- .col-md-3
+                        button.btn.btn-danger -
+                      input.col-md-6(type="number" class="quantity" value="#{cart[i].cart_item.quantity}")
+                      button.btn.btn-primary.col-md-3(onclick="clientUpdateCart('#{cart[i].cart_item.cart_id}', document.getElementsByClassName('quantity'), '#{i}', '#{session.username}')") &check;
+                      button.btn.btn-danger.col-md-3(onclick="clientDeleteCart('#{cart[i].cart_item.cart_id}', '#{session.username}')") &cross;
+                  td.align-middle #{cart[i].total}
+              -}
+            -}
+            
+            tr
+              th.align-middle(colspan = 6, style = "color:black; background-color:orange") Appointments          
+            tr
+              th.align-middle(scope='col') Appointment Number
+              |             
+              th.align-middle(scope='col') Services
+              |             
+              th.align-middle(scope='col') Date
+              |             
+              th.align-middle(scope='col') Time
+              |             
+              th.align-middle(scope='col') Status
+              |             
+              th.align-middle(scope='col') Total
+            -if(appointments.length == 0){
+              tr
+                td.align-middle(colspan = 6) No Appointments
+            -}
+            -else{
+              - for(var i = 0; i < appointments.length; i++) {
+                tr
+                  td.align-middle #{i+1}
+                  td
+                    nav.main_nav
+                    ul.d-flex.flex-row.align-items-start.justify-content-start
+                      li.dropdown
+                        ol
+                          - for(var j = 0; j< appointments[i].appointment_services.length; j++){
+                            li #{appointments[i].appointment_services[j].service_name}
+                          -}
+                  td.align-middle #{appointments[i].appointments.appointment_date}
+                  td.align-middle #{appointments[i].appointments.appointment_time}
+                  td.align-middle #{appointments[i].appointments.appointment_status}
+                  td.align-middle #{appointments[i].appointment_total}
+                  //- td.align-middle 
+                    - if(appointments[i].appointments.appointment_status == "pending" || appointments[i].appointments.appointment_status == "accepted"){
+                      | 
+                      a.btn.btn-warning(href="/appointments/cancel/#{appointments[i].appointments.appointment_id}" style="color:black") Cancel
+                    - } else if(appointments[i].appointments.appointment_status == "cancelled" || appointments[i].appointments.appointment_status == "rejected"){
+                      | 
+                      a.btn.btn-warning(href="/appointments/delete/#{appointments[i].appointments.appointment_id}" style="color:black") Delete
+                    - }
+              -}
+            -}
+    //total cart
+    .col-md-4
+      .card.mb-4.mr-4
+        img.card-img-top(src='/images/dp/'+'#{session.username}'+'.jpg' height='200' alt='Card image cap')
+        |                       
+        .card-body
+          table.table
+            thead
+              tr
+                th(scope='col') Name
+                |                                 
+                th(scope='col')
+                |                                 
+                th(scope='col') #{session.fullname}
+            |                             
+            tbody
+              tr
+                th(scope='col') Cart Total
+                |                                     
+                th(scope='col')
+                |                                     
+                th(scope='col') #{cart.cart_total}$
+              tr
+                th(scope='col') Appointments Total
+                |                                 
+                th(scope='col')
+                |                                 
+                th(scope='col') #{appointments.appointments_total}$
+              tr
+                th(scope='col') Grand Total
+                |                                 
+                th(scope='col')
+                |                                 
+                -if(cart.length == 0){
+                  th(scope='col') #{0+appointments.appointments_total}$
+                -}
+                -else if(appointments.length == 0){
+                  th(scope='col') #{cart.cart_total+0}$
+                -}
+                -else{
+                  th(scope='col') #{cart.cart_total+appointments.appointments_total}$
+                -}
+                
+        |                       
+        //- .card-footer
+          .row
+            form(action="/manager/products/del" method="POST")
+              //- input(type="hidden" name= "product_id" value ="#{i.product_id}")
+              button.btn.btn-danger(type="submit") Delete 
+            |                         
+            .col-5
+            |                         
+            form(action="/manager/updateProduct" method="POST")
+              //- input(type="hidden" name= "product_id" value ="#{i.product_id}")
+              button.btn.btn-primary(type="submit") Update 
+
+include scripts
+script(src='/js/cart.js')

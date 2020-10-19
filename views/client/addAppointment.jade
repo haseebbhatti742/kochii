@@ -1,0 +1,29 @@
+include header2
+br
+br
+br
+br
+br
+.home
+    #main.container
+        #addError.alert.alert-danger.alert-dismissible(hidden='true')
+          button.close(type='button', data-dismiss='alert') &times;
+            |   
+          strong Error!
+            |   
+            p#msg
+        #app_form.app_form
+            input#appintment_date.app_input(type='date', placeholder='Desired Date', required='required')                           
+            select#service.app_input.app_select(onchange="selectService()")
+              option(disabled='', selected='') Select Service
+            | 
+            #selectedServices
+        
+            .text-center
+              .text-left.row
+                .col-5
+                  button#addAppointmentButton.app_form_button(onclick="addAppointment()") Add
+include scripts
+script(src='/js/addAppointment.js')
+script(<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.4/jquery.min.js")
+script(src="http://bootstrap-tagsinput.github.io/bootstrap-tagsinput/dist/bootstrap-tagsinput.min.js")

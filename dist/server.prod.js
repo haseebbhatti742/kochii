@@ -1,0 +1,1 @@
+"use strict";var http=require("http"),app1=require("./app"),app=app1.app,port=process.env.PORT||8080,server=http.createServer(app);server.listen(port,function(){console.log("Server Running")});

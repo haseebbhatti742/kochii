@@ -1,0 +1,107 @@
+if session.username==null
+  include header1
+else 
+  include header2
+br
+br
+br
+br
+br        
+.container
+    .row1
+        .col-1
+          a.btn.btn-warning.mb-4(onclick='addProduct()' style='color:black')
+            i.fas.fa-plus-circle
+            |  Add Product
+    //-     |             
+    //-     .col-2
+    //-     |             
+    //-     .col-7
+    //-       form#app_form.app_form
+    //-         .row
+    //-           .col-4
+    //-             input.app_input.mt-4(type='text', placeholder='Search Product')
+    //-           |                     
+    //-           .col-2
+    //-             button.app_form_button
+    //-               i.fas.fa-search
+    //-               |  Search
+    //-     |               
+    //-     |               
+    //-     .col-2
+    //-       form#app_form.app_form.mt-4
+    //-         select.app_input.app_select
+    //-           option(disabled='', selected='')  Filter Product
+    //-           |                     
+    //-           option Product 1
+    //-           |                     
+    //-           option Product 2
+    //-           |                     
+    //-           option Product 3
+    //-           |                     
+    //-           option Product 4
+    //- |  
+    //- br
+    //- |             
+    .row
+      if length==0 
+         h1 No Products found
+      else
+        each i in productData
+          .col-md-4.col-sm-6.col-xs-12
+            .card.mb-4.mr-4
+              img.card-img-top(src='/images/products/'+'#{i.product_id}'+'.JPG', height='200' alt='Card image cap')
+              |                       
+              .card-body
+                table.table
+                  thead
+                    tr
+                      th(scope='col') Product Name
+                      |                                 
+                      th(scope='col')
+                      |                                 
+                      th(scope='col') #{i.product_name}
+                  |                             
+                  tbody
+                    tr
+                      th(scope='col') Product Price
+                      |                                     
+                      th(scope='col')
+                      |                                     
+                      th(scope='col') #{i.product_price}$
+                  |                             
+                  tr
+                    th(scope='col') Product Status
+                    |                                 
+                    th(scope='col')
+                    |                                 
+                    th(scope='col') #{i.product_status}
+                  tr
+                    th(scope='col') Product Quantity
+                    |                                 
+                    th(scope='col')
+                    |                                 
+                    th(scope='col') #{i.product_quantity}
+                  tr
+                    th(scope='col') Minimum Quantity
+                    |                                 
+                    th(scope='col')
+                    |                                 
+                    th(scope='col') #{i.product_minQuantity}
+                |                           
+                h6.d-inline Product Description: 
+                p.text-justify #{i.product_desc}
+              |                       
+              .card-footer
+                .row
+                  form(action="/manager/products/del", method="POST")
+                    input(type="hidden" name= "product_id" value ="#{i.product_id}")
+                    button.btn.btn-danger(type="submit") Delete 
+                  |                         
+                  .col-5
+                  |                         
+                  form(action="/manager/updateProduct", method="POST")
+                    input(type="hidden" name= "product_id" value ="#{i.product_id}")
+                    button.btn.btn-primary(type="submit") Update 
+            
+include scripts

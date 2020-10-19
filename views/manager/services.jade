@@ -1,0 +1,76 @@
+if session.username==null
+  include header1
+else 
+  include header2
+br
+br
+br
+br
+br
+br    
+.container
+  .row.mt-4
+    .col-1
+      a.btn.btn-warning(onclick='addService()' style='color:black')
+        i.fas.fa-plus-circle
+        |  Add Service
+    |             
+    .col-2
+    |             
+    .col-7
+      #app_form.app_form
+        .row
+          .col-4
+            input#searchInput.app_input(type='text' placeholder='Search Service')
+          |                     
+          .col-2
+            button.btn.btn-warning(onclick = "searchService()" style='color:black')
+              i.fas.fa-search
+              |  Search
+  |  
+  br
+  |     
+  br
+  br
+  br
+  // Table of services
+  if length==0
+    h1 No Service Founnd
+  else
+    .row
+      .table-responsive-sm
+        table.table.table-striped
+          thead
+            tr
+              th.align-middle(scope='col') Sr Id.
+              th.align-middle(scope='col') Service Name
+              th.align-middle(scope='col') Service Status
+              th.align-middle(scope='col') Service Price
+              th.align-middle.text-center(scope='col') Service Description
+              th.align-middle.text-center(scope='col') Actions
+          tbody
+            each i in serviceData
+              tr
+                td.align-middle.text-center(scope='row') #{i.service_id}
+                td.align-middle #{i.service_name}
+                td.align-middle #{i.service_status}
+                td.align-middle #{i.service_price}$
+                td.align-middle #{i.service_desc}
+                  // <div class="col-2"></div>
+                td.align-middle
+                  .row
+                    form(action="/manager/updateService" method="POST")
+                      input(hidden="true" value="#{i.service_id}" name="service_id")
+                      button.btn.btn-warning.mr-2(type="submit") Update
+                    form(action="/manager/services/del" method="POST")
+                      input(hidden="true" value="#{i.service_id}" name="service_id")
+                      button.btn.btn-warning(type="submit") Delete
+include scripts
+script(type='text/javascript').
+  function searchService(){
+    var keyword = document.getElementById("searchInput").value;
+    if(keyword == "" || keyword == null)
+      alert("Please enter a keyword")
+    else
+      window.location.replace("/manager/services/search/"+keyword)
+  }

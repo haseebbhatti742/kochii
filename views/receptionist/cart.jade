@@ -1,0 +1,187 @@
+include header2
+br
+br
+br
+br
+br
+br
+br
+br
+.container
+  .row
+    .col-md-8
+      .table-responsive-sm
+        table.table.table-striped(style = "text-align: center")
+          thead
+            tr
+              th(colspan = 6, style = "color:black; background-color:orange") Cart
+            tr
+              th.align-middle(scope='col') Cart Number
+              |             
+              th.align-middle(scope='col') Product
+              |             
+              th.align-middle(scope='col') Date
+              |             
+              th.align-middle(scope='col') Product Price
+              | 
+              th.align-middle(scope='col') Quantity
+              |         
+              th.align-middle(scope='col') Total
+              |         
+          tbody
+            -if(cart.length==0){
+              tr
+                td.align-middle(colspan=6) No Items in Cart
+            -}
+            -else{
+              -for(var i = 0; i < cart.length; i++) {
+                tr
+                  td.align-middle #{i+1}
+                  td.align-middle #{cart[i].cart_item.product_name}
+                  td.align-middle #{cart[i].cart_item.day}/#{cart[i].cart_item.month}/#{cart[i].cart_item.year}
+                  td.align-middle #{cart[i].cart_item.product_price}
+                  td.align-middle
+                    .row
+                      //- .col-md-3
+                        button.btn.btn-danger -
+                      input.col-md-6(type="number" class="quantity" value="#{cart[i].cart_item.quantity}")
+                      button.btn.btn-primary.col-md-3(onclick="receptionistUpdateCart('#{cart[i].cart_item.cart_id}', document.getElementsByClassName('quantity'), '#{i}', '#{cart[i].cart_item.username}')") &check;
+                      button.btn.btn-danger.col-md-3(onclick="receptionistDeleteCart('#{cart[i].cart_item.cart_id}', '#{cart[i].cart_item.username}')") &cross;
+                  td.align-middle #{cart[i].total}
+              -}
+            -}
+            
+            tr
+              th.align-middle(colspan = 6, style = "color:black; background-color:orange") Appointments          
+            tr
+              th.align-middle(scope='col') Appointment Number
+              |             
+              th.align-middle(scope='col') Services
+              |             
+              th.align-middle(scope='col') Date
+              |             
+              th.align-middle(scope='col') Time
+              |             
+              th.align-middle(scope='col') Status
+              |             
+              th.align-middle(scope='col') Total
+            -if(appointments.length == 0){
+              tr
+                td.align-middle(colspan = 6) No Appointments
+            -}
+            -else{
+              - for(var i = 0; i < appointments.length; i++) {
+                tr
+                  td.align-middle #{i+1}
+                  td
+                    nav.main_nav
+                    ul.d-flex.flex-row.align-items-start.justify-content-start
+                      li.dropdown
+                        ol
+                          - for(var j = 0; j< appointments[i].appointment_services.length; j++){
+                            li #{appointments[i].appointment_services[j].service_name}
+                          -}
+                  td.align-middle #{appointments[i].appointments.appointment_date}
+                  td.align-middle #{appointments[i].appointments.appointment_time}
+                  td.align-middle #{appointments[i].appointments.appointment_status}
+                  td.align-middle #{appointments[i].appointment_total}
+                  //- td.align-middle 
+                    - if(appointments[i].appointments.appointment_status == "pending" || appointments[i].appointments.appointment_status == "accepted"){
+                      | 
+                      a.btn.btn-warning(href="/appointments/cancel/#{appointments[i].appointments.appointment_id}" style="color:black") Cancel
+                    - } else if(appointments[i].appointments.appointment_status == "cancelled" || appointments[i].appointments.appointment_status == "rejected"){
+                      | 
+                      a.btn.btn-warning(href="/appointments/delete/#{appointments[i].appointments.appointment_id}" style="color:black") Delete
+                    - }
+              -}
+            -}
+    //total cart
+    .col-md-4
+      .card.mb-4.mr-4
+        img.card-img-top(src='/images/dp/'+'#{username}'+'.jpg' height='200' alt='Card image cap')
+        |                       
+        .card-body
+          table.table
+            thead
+              tr
+                th(scope='col') Name
+                |                                 
+                th(scope='col')
+                |                                 
+                th(scope='col') #{username}
+            |                             
+            tbody
+              tr
+                th(scope='col') Cart Total
+                |                                     
+                th(scope='col')
+                |                                     
+                th(scope='col') #{cart.cart_total}$
+              tr
+                th(scope='col') Appointments Total
+                |                                 
+                th(scope='col')
+                |                                 
+                th(scope='col') #{appointments.appointments_total}$
+              tr
+                th(scope='col') Grand Total
+                |                                 
+                th(scope='col')
+                |                                 
+                -if(cart.length == 0){
+                  th(scope='col') #{0+appointments.appointments_total}$
+                -}
+                -else if(appointments.length == 0){
+                  th(scope='col') #{cart.cart_total+0}$
+                -}
+                -else{
+                  th(scope='col') #{cart.cart_total+appointments.appointments_total}$
+                -}
+                
+        |                       
+        .card-footer
+          //button.btn.btn-success.btn-block(onclick = "checkoutByReceptionist('#{username}', '#{cart.cart_total+appointments.appointments_total}')") Checkout
+          -if(cart.cart_total == null || cart.cart_total == NaN || cart.cart_total == 0){
+            button.btn.btn-success.btn-block(onclick = "checkoutByReceptionist('#{username}', '#{appointments.appointments_total}')") Checkout
+          -}
+          -else if(appointments.appointments_total == null || appointments.appointments_total == NaN || appointments.appointments_total == 0){
+            button.btn.btn-success.btn-block(onclick = "checkoutByReceptionist('#{username}', '#{cart.cart_total}')") Checkout
+          -}
+          -else{
+            button.btn.btn-success.btn-block(onclick = "checkoutByReceptionist('#{username}', '#{cart.cart_total+appointments.appointments_total}')") Checkout
+          -}
+
+include print-reciept
+include scripts
+script(src='/js/cart.js')
+script.
+    function checkoutByReceptionist(username, order_amount) {
+      fetch("/receptionist/cart/checkout", {
+        method: "POST",
+        body: JSON.stringify({ username, order_amount }),
+        headers: new Headers({
+          'Content-Type': 'application/json'
+        }),
+      }).then(data => data.json()).then(data => {
+        if (data.status == "ok") {
+          document.getElementById("bill_number").innerHTML = data.bill_number;
+          printDiv();
+        } else if (data.status == "error") {
+          alert("Error: "+data.msg);
+        }
+      })
+    }
+
+    function printDiv(){
+      var printContents = document.getElementById("printDiv").innerHTML;
+      var originalContents = document.body.innerHTML;
+
+      document.body.innerHTML = printContents;
+
+      window.print();
+
+      document.body.innerHTML = originalContents;
+    }
+
+script.
+  document.getElementById("textarea").offsetHeight = document.getElementById("totalarea").offsetHeight;

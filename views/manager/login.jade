@@ -1,0 +1,22 @@
+include header1
+br
+br
+br
+br
+br
+.home
+    #main.container
+        #loginError.alert.alert-danger.alert-dismissible(hidden='true')
+          button.close(type='button', data-dismiss='alert') &times;
+            |   
+          strong Error!
+            |   Username/Email or Password is incorrect.
+        #app_form.app_form
+            input#username.app_input(type='text', name='username' placeholder='Enter email or username', required='required')
+            input#password.app_input(type='password', name='pass' placeholder='Enter Password', required='required')
+            .text-left
+            |         
+            .text-right           
+              button.app_form_button.text-center(onclick="managerLogin()") Submit
+include scripts
+script(src='/js/checklogin.js')

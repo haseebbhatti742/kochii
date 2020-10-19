@@ -1,0 +1,36 @@
+include header2
+br
+br
+br
+br
+.home.conatiner
+      .row
+        .col-4
+        |             
+        .col-5
+          #app_form.app_form.container
+            input#serviceId(hidden="true" value="#{service_data.service_id}")
+            input#serviceName.app_input(type='text', placeholder='Service Name', required='required' value="#{service_data.service_name}")
+            |         
+            input#servicePrice.app_input(type='text', placeholder='Service Price', required='required' value="#{service_data.service_price}")
+            |  
+            |         
+            select#serviceStatus.app_input.app_select
+              option(disabled='', selected='') Select Status
+              |           
+              option Available
+              |           
+              option Not Available
+            |          
+            textarea#serviceDesc.contact_input.contact_textarea(placeholder='Product Description', required='required', rows='3') #{service_data.service_desc}
+            // <div class="col-5"></div>
+            .text-left.row
+              button.app_form_button(onclick='reg()')
+                | cancel
+              |             
+              .col-7
+              |   
+              |             
+              button.app_form_button.text-center(onclick='updateService()') Save Changes
+include scripts
+script(src="/js/addService.js")

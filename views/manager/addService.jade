@@ -1,0 +1,42 @@
+include header2
+br
+br
+br
+br
+br
+// Form
+.home.conatiner
+    #Error.alert.alert-danger.alert-dismissible(hidden='true')
+          button.close(type='button', data-dismiss='alert') &times;
+            |   
+          strong Error!
+            |   Service was not added
+    #app_form.app_form.container
+        .row
+            .col-3
+            |          
+            .col-5             
+                input#serviceName.app_input(type='text', placeholder='Service Name', required='required')
+                |         
+                input#servicePrice.app_input(type='text', placeholder='Price', required='required')
+                |         
+                select#serviceStatus.app_input.app_select
+                    option(disabled='', selected='',) Service Status
+                    |     
+                    option(value='available') Available
+                    |     
+                    option(value='not available') Not Available
+                |         
+                textarea#serviceDesc.contact_input.contact_textarea(placeholder='Service Description', required='required', rows='3')
+                |           
+                .col-3
+                |           
+                .text-left.row
+                    button.app_form_button(onclick='cancel()')
+                        | cancel
+                    |             
+                    .col-6
+                    button.app_form_button.text-center(onclick='addService()') Add Service
+
+include scripts
+script(src="/js/addService.js")

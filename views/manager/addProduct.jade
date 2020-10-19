@@ -1,0 +1,59 @@
+include header2
+br
+br
+br
+br
+br
+// Form
+.home.conatiner
+    #app_form.app_form.container
+        .col-1
+        |          
+        .col-6
+          #addError.alert.alert-danger.alert-dismissible(hidden='true')
+            button.close(type='button', data-dismiss='alert') &times;
+              |   
+            strong Error!
+              |   
+              p#msg
+        .row
+          .col-1
+          |          
+          .col-5             
+            input#product_name.app_input(type='text', placeholder='Product Name*', required='required')
+            |             
+            input#product_price.app_input(type='text', placeholder='Product Price*', required='required' onkeypress="checkPrice(event)")
+            span#priceError          
+            input#product_quantity.app_input(type='text', placeholder='Product Quantity*', required='required' onkeypress="checkQuantity(event)")
+            span#quantityError         
+            input#product_minQuantity.app_input(type='text', placeholder='Minumum Quantity*', required='required' onkeyup="checkMinQuantity(event)")
+            span#minQuantityError         
+            select#product_status.app_input.app_select
+              option(disabled='', selected='') Select Status*
+              |     
+              option(value="available") Available
+              |     
+              option(value="not available") Not Available
+            |         
+            //- input#product_image.app_input(type='file', placeholder='Select Image*', accept='image/*' required='required' )
+            textarea#product_desc.contact_input.contact_textarea(placeholder='Product Description*', required='required', rows='3')
+            |           
+            .col-4
+            |           
+            .text-left.row
+              button.app_form_button(onclick='reg()')
+                | cancel
+              |             
+              .col-5
+              |             
+              |             
+              button#addProduct.app_form_button.text-center(onclick='addProduct()') Add Product
+          |         
+          .col-5
+            .form-group
+              input#product_image.app_input(type='file', placeholder='Select Image*', accept='image/*', onchange='onFileSelected(event)')
+              |                 
+              #thumb-output
+                img(id="myimage" height="80%" width="100%")
+include scripts
+script(src="/js/addProduct.js")

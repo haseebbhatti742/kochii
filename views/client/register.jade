@@ -1,0 +1,25 @@
+include header1
+br
+br
+br
+br
+br
+.home
+    #main.container
+          #app_form.app_form
+            input#fullname.app_input(type='text', placeholder='Full Name*', required='required' onkeypress="checkName(event)")
+            input#username.app_input(type='text', placeholder='Username*', onkeyup="checkusername()", onkeydown="checkusername()" required='required')
+            p#unError
+            input#email.app_input(type='email', placeholder='Email Address*', onkeyup="checkemail()", onkeydown="checkemail()" required='required')
+            p#emailError
+            input#phone.app_input(type='text', placeholder='Phone Number*', required='required' onkeypress='checkPhone(event)')
+            input#password.app_input(type='password', placeholder='Password*', required='required' onkeyup="checkPass()", onkeydown="checkPass()")
+            span#passError 
+            input#address.app_input(type='text', placeholder='Address')
+            .text-left Already a Member? Click here to 
+              a(href='/login-form') Login
+            .text-right         
+              button#register.app_form_button.text-center(onclick="addForm()") submit
+
+include scripts
+script(src='js/checkRegister.js')
