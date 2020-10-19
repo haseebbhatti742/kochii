@@ -38,20 +38,20 @@ app1.use(passport.initialize());
 app1.use(passport.session());
 
 //db connection
-var conn = mysql.createPool({
-    host: 'localhost',
-    user: 'kochiine_kochi',
-    password: '742kochii742',
-    database: 'kochiine_kochi'
-});
-
-
 // var conn = mysql.createPool({
 //     host: 'localhost',
-//     user: 'root',
-//     password: '',
-//     database: 'saloon'
+//     user: 'kochiine_kochi',
+//     password: '742kochii742',
+//     database: 'kochiine_kochi'
 // });
+
+
+var conn = mysql.createPool({
+    host: 'localhost',
+    user: 'root',
+    password: '',
+    database: 'saloon'
+});
 
 conn.getConnection(function(err, con) {
     if (err) {
@@ -194,8 +194,8 @@ app1.use("/receptionist/logout", function(req, res) {
 
 /* ---------------------------- receptionist routes end ---------------------------- */
 
-// const basicRoute = "http://localhost:8080";
-const basicRoute = "http://kochii.net";
+const basicRoute = "http://localhost:8080";
+// const basicRoute = "http://kochii.net";
 
 module.exports.app = app1;
 module.exports.conn = conn;

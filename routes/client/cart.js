@@ -169,7 +169,13 @@ function getCartProductsMoile(req, res, appointments, username) {
             }
 
             cart.cart_total = cart_total;
-            // res.render("client/cart", { appointments: appointments, cart: cart });
+
+            // console.log(cart)
+            // setTimeout(function() {
+            //     res.status(200).json({ status: "ok", appointments: appointments, cart: cart });
+            // }, 3000)
+
+            //console.log(cart)
             res.status(200).json({ status: "ok", appointments: appointments, cart: cart });
         }
     })
