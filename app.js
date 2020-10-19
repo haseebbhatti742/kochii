@@ -194,8 +194,8 @@ app1.use("/receptionist/logout", function(req, res) {
 
 /* ---------------------------- receptionist routes end ---------------------------- */
 
-const basicRoute = "http://localhost:8080";
-// const basicRoute = "http://kochii.net";
+// const basicRoute = "http://localhost:8080";
+const basicRoute = "http://kochii.net";
 
 module.exports.app = app1;
 module.exports.conn = conn;
