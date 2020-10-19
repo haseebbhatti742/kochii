@@ -38,20 +38,20 @@ app1.use(passport.initialize());
 app1.use(passport.session());
 
 //db connection
-// var conn = mysql.createPool({
-//     host: 'localhost',
-//     user: 'kochiine_kochi',
-//     password: '742kochii742',
-//     database: 'kochiine_kochi'
-// });
-
-
 var conn = mysql.createPool({
     host: 'localhost',
-    user: 'root',
-    password: '',
-    database: 'saloon'
+    user: 'kochiine_kochi',
+    password: '742kochii742',
+    database: 'kochiine_kochi'
 });
+
+
+// var conn = mysql.createPool({
+//     host: 'localhost',
+//     user: 'root',
+//     password: '',
+//     database: 'saloon'
+// });
 
 conn.getConnection(function(err, con) {
     if (err) {
