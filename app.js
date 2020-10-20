@@ -45,7 +45,6 @@ var conn = mysql.createPool({
     database: 'kochiine_kochi'
 });
 
-
 // var conn = mysql.createPool({
 //     host: 'localhost',
 //     user: 'root',

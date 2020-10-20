@@ -211,13 +211,54 @@ router.post("/add", function(req, res) {
             })
         }
     })
+});
 
+router.post("/add/mobile", function(req, res) {
+    var product_id = req.body.product_id;
+    var quantity = req.body.quantity;
+    var username = req.body.username;
+    var date = new Date();
 
-
+    var query = "SELECT * from cart WHERE username = '" + username + "' AND product_id = '" + product_id + "'";
+    app.conn.query(query, function(err, result) {
+        if (err) {
+            res.status(200).json({ status: "error", "msg": err.message });
+        } else if (result.length == 0) {
+            var query = "INSERT INTO cart (username, product_id, quantity, day, month, year, status) VALUES ('" + username + "', " + product_id + ", " + quantity + " , " + date.getDate() + ", " + (date.getMonth() + 1) + ", " + date.getFullYear() + ", 'new')";
+            app.conn.query(query, function(err, result) {
+                if (err) {
+                    res.status(200).json({ status: "error", "msg": err.message });
+                } else {
+                    res.status(200).json({ status: "ok" });
+                }
+            })
+        } else if (result.length > 0) {
+            var total_quantity = Number(quantity) + Number(result[0].quantity);
+            var query = "UPDATE cart SET quantity = " + total_quantity + ",  day = " + date.getDate() + ", month = " + (date.getMonth() + 1) + ", year = " + date.getFullYear() + " WHERE cart_id =" + result[0].cart_id;
+            app.conn.query(query, function(err, result) {
+                if (err) {
+                    res.status(200).json({ status: "error", "msg": err.message });
+                } else {
+                    res.status(200).json({ status: "ok" });
+                }
+            })
+        }
+    })
 });
 
 router.post("/getCart", function(req, res) {
     var query = "SELECT * from cart WHERE username = '" + req.session.username + "' AND status ='new'";
+    app.conn.query(query, function(err, result) {
+        if (err) {
+            res.status(200).json({ status: "error", "msg": err.message });
+        } else {
+            res.status(200).json({ status: "ok", cart_items: result.length });
+        }
+    })
+});
+
+router.get("/getCart/mobile/:username", function(req, res) {
+    var query = "SELECT * from cart WHERE username = '" + req.params.username + "' AND status ='new'";
     app.conn.query(query, function(err, result) {
         if (err) {
             res.status(200).json({ status: "error", "msg": err.message });
