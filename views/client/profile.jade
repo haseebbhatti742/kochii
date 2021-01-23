@@ -7,55 +7,27 @@ br
 br
 br
 br
-br         
-br
-.container
-    .row.profile
-        .col-md-3
-            .profile-sidebar
-                // SIDEBAR USERPIC
-                .profile-userpic
-                    img.img-responsive(src='/images/logo2.png' alt='')
-                // END SIDEBAR USERPIC
-                // SIDEBAR USER TITLE
-                .profile-usertitle
-                    .profile-usertitle-name
-                        | Marcus Doe
-                    | &#x9;&#x9;&#x9;&#x9;&#x9;
-                    .profile-usertitle-job
-                        | Developer
-                // END SIDEBAR USER TITLE
-                // SIDEBAR BUTTONS
-                .profile-userbuttons
-                    button.btn.btn-success.btn-sm(type='button') Follow
-                    | &#x9;&#x9;&#x9;&#x9;&#x9;
-                    button.btn.btn-danger.btn-sm(type='button') Message
-                // END SIDEBAR BUTTONS
-                // SIDEBAR MENU
-                .profile-usermenu
-                    ul.nav
-                        li
-                            a(href='#')
-                                i.glyphicon.glyphicon-home
-                                | &#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;Overview
-                        | &#x9;&#x9;&#x9;&#x9;&#x9;&#x9;
-                        li
-                            a(href='#')
-                                i.glyphicon.glyphicon-user
-                                | &#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;Account Settings
-                        | &#x9;&#x9;&#x9;&#x9;&#x9;&#x9;
-                        li
-                            a(href='#')
-                                i.glyphicon.glyphicon-ok
-                                | &#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;Tasks
-                        | &#x9;&#x9;&#x9;&#x9;&#x9;&#x9;
-                        li
-                            a(href='#')
-                                i.glyphicon.glyphicon-flag
-                                | &#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;Help
-                        | &#x9;&#x9;&#x9;&#x9;&#x9;&#x9;
-                // END MENU
-        | &#x9;&#x9;
-    br
-    br
+.profileHeader
+    .details
+        img.profile-pic(src='/images/dp/#{session.username}.jpg', alt='#{session.username}')
+        h1.heading #{session.fullname}
+        .location
+            p #{session.username}
+        br
+        .stats
+            .col-4
+                h4 #{orders}
+                p Orders
+            .col-4
+                h4 #{appointments_completed}
+                p Completed Appointments
+            .col-4
+                h4 #{appointments_pending}
+                p Pending Appointments
+        .stats
+            .col-4
+            .col-4
+                button.app_form_button.text-center(data-toggle='modal' data-target='#passwordModal') Change Password
+
 include scripts
+include password-modal
